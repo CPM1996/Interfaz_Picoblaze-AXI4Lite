@@ -1,0 +1,377 @@
+;Programa para configurar generación de patrones por HDMI
+;
+;Autor: Carlos Pérez Muñoz
+
+;Nota: las rutinas relacionadas con UART son importadas de los ficheros de ejemplo de Picoblaze
+
+;-------interfaz axil-lite---------
+	CONSTANT axil_addr, 00
+
+;-------UART Status-----------------------
+	CONSTANT UART_status_port, 02             ; Read status
+        CONSTANT UART_Tx_data_present, 00000001'b ; Tx   data_present - bit0
+        CONSTANT UART_Tx_half_full, 00000010'b    ;         half_full - bit1
+        CONSTANT UART_Tx_full, 00000100'b         ;              full - bit2
+        CONSTANT UART_Rx_data_present, 00001000'b ; Rx   data_present - bit3
+        CONSTANT UART_Rx_half_full, 00010000'b    ;         half_full - bit4
+        CONSTANT UART_Rx_full, 00100000'b         ;              full - bit5
+
+;-------UART TX--------------------------
+	CONSTANT UART_TX6_output_port, 01
+
+;-------UART RX--------------------------
+	CONSTANT UART_RX6_input_port, 01
+
+;-------SWITCHs & LEDs------------------
+	CONSTANT SW_ADDR, 03
+	CONSTANT LED_ADDR, 03
+
+;-------Main------------------------------
+	CALL ini_tpg;
+	
+UART_echo: CALL UART_RX
+	   CALL UART_TX
+	   COMPARE sE, "l";
+	   CALL Z, SW_2_LED;
+	   COMPARE sE, "r";
+	   CALL Z, read_AXI;
+	   COMPARE sE, "w";
+	   CALL Z, write_AXI;
+	   JUMP UART_echo 
+
+;-------end Main---------------------------
+; Altura de video activo
+
+ini_tpg:LOAD s4, 10;
+	LOAD s5, 00;
+	; 1080p
+	LOAD s0, 38;
+	LOAD s1, 04;
+
+	CALL write_2; 
+
+; Anchura de video activo
+	LOAD s4, 18;
+	LOAD s5, 00;
+	; 1080p
+	LOAD s0, 80;
+	LOAD s1, 07;
+
+	CALL write_2;
+
+; Patrón de pruebas
+	LOAD s4, 20;
+	LOAD s5, 00;
+	LOAD s0, 0A;
+	LOAD s1, 00;
+	
+	CALL write_2
+
+; Motion Speed
+	LOAD s4, 38;
+	LOAD s5, 00;
+	LOAD s0, 10;
+	LOAD s1, 00;
+	
+	CALL write_2
+
+; Zplate hor. start
+	LOAD s4, 58;
+	LOAD s5, 00;
+	LOAD s0, 00;
+	LOAD s1, 00;
+
+CALL write_2
+
+; Zplate hor. delta
+	LOAD s4, 60;
+	LOAD s5, 00;
+	LOAD s0, 01;
+	LOAD s1, 00;
+
+	CALL write_2
+
+; Zplate vert. start
+	LOAD s4, 68;
+	LOAD s5, 00;
+	LOAD s0, 00;
+	LOAD s1, 00;
+
+CALL write_2
+
+; Zplate vert. delta
+	LOAD s4, 70;
+	LOAD s5, 00;
+	LOAD s0, 01;
+	LOAD s1, 00;
+
+CALL write_2
+
+; Iniciar TPG
+	LOAD s4, 00;
+	LOAD s5, 00;
+	LOAD s0, 83;
+	LOAD s1, 00;
+
+	CALL write_2
+
+; Comprobación de lectura
+	LOAD s4, 18;
+	LOAD s5, 00;
+	CALL read_2
+
+	COMPARE s0, 80;
+	COMPARECY s1, 07; 
+
+; Activa video timing controller
+	LOAD s0, 07;
+	LOAD s1, FF;
+	LOAD s2, FF;
+	LOAD s3, 01;
+	LOAD s4, 00;
+	LOAD s5, 10;
+	LOAD s6, 00;
+	LOAD s7, 00;
+
+	CALL write_4
+
+	LOAD s4, 60;
+	LOAD s5, 10;
+
+	CALL read_4;
+
+	RETURN;
+	      
+
+write_2: OUTPUTK 02, axil_addr; Escritura de dos bytes
+
+	 OUTPUT s0, (s4);
+	 OUTPUT s1, (s5);
+
+	 CALL wait_write;
+	 TEST sF, 01;
+
+	 RETURN;
+
+write_4: OUTPUTK 00, axil_addr; Escritura de 4 bytes
+
+ 	 OUTPUT s0, (s4);
+	 OUTPUT s1, (s5);
+	 OUTPUT s2, (s6);
+	 OUTPUT s3, (s7);
+
+	 CALL wait_write;
+	 TEST sF, 01;
+
+	 RETURN;
+
+wait_write: INPUT sF, axil_addr; comprobar si se ha hecho la escritura
+	    TEST sF, 00000010'b;
+	    RETURN NZ;
+	    JUMP Z, wait_write; 
+
+read_2: OUTPUTK B9, axil_addr; Lectura de dos bytes
+	OUTPUT s0, (s4);
+	OUTPUT s0, (s5);
+
+	CALL wait_read;
+
+	TEST sF, 04;
+	RETURN NZ;
+
+	INPUT s0, axil_addr;
+	INPUT s1, axil_addr;
+	RETURN;
+
+read_4: OUTPUTK B0, axil_addr; Lectura de 4 bytes
+	OUTPUT s0, (s4);
+	OUTPUT s0, (s5);
+	OUTPUT s0, (s6);
+	OUTPUT s0, (s7);
+
+	CALL wait_read;
+
+	TEST sF, 04;
+	RETURN NZ;
+
+	INPUT s0, axil_addr;
+	INPUT s1, axil_addr;
+	INPUT s2, axil_addr;
+	INPUT s3, axil_addr;
+	RETURN;
+
+wait_read: INPUT sF, axil_addr;
+	   TEST sF, 08;
+	   RETURN NZ;
+	   JUMP Z, wait_read;
+
+SW_2_LED:CALL wait_space
+	 INPUT sF, SW_ADDR;
+	 OUTPUT sF, LED_ADDR;
+	 CALL next_line
+ 	 RETURN;
+
+read_AXI:CALL wait_space
+	 CALL obtain_value
+	 JUMP C, read_err
+	 LOAD s4, sA;
+	 LOAD s5, sB;
+         LOAD s6, sC;
+	 LOAD s7, sD;
+	 CALL read_4;
+
+	 JUMP NZ, read_err;
+	 LOAD sd, s3;
+	 CALL send_hex;
+	 LOAD sd, s2;
+	 CALL send_hex;
+	 LOAD sd, s1;
+	 CALL send_hex;
+	 LOAD sd, s0;
+	 CALL send_hex;
+	 CALL next_line;	 
+
+	 RETURN
+
+   read_err:CALL send_space
+	    CALL send_err
+	    RETURN
+
+write_AXI:CALL wait_space
+	  CALL obtain_value
+	  JUMP C, read_err
+	  LOAD s4, sA;
+	  LOAD s5, sB;
+          LOAD s6, sC;
+	  LOAD s7, sD;
+
+	  CALL obtain_value
+	  JUMP C, write_err
+	  LOAD s0, sA;
+	  LOAD s1, sB;
+          LOAD s2, sC;
+	  LOAD s3, sD;
+ 
+	  CALL write_4;
+	  JUMP NZ, write_err;
+	  JUMP write_ok;	 
+
+   write_ok:LOAD sE, "O";
+	    CALL UART_TX;
+	    LOAD sE, "K";
+	    CALL UART_TX;
+	    CALL next_line
+	    RETURN;		
+
+  write_err:CALL send_space
+	    CALL send_err
+	    RETURN
+
+UART_TX: INPUT sf, UART_status_port                ;Check if buffer is full
+         TEST sf, UART_Tx_full
+         JUMP NZ, UART_TX                          ;wait if full
+         OUTPUT se, UART_TX6_output_port
+         RETURN 
+
+UART_RX: INPUT sf, UART_status_port
+         TEST sf, UART_Rx_data_present             ;Z=0 and C=1 when data present                    
+	 JUMP Z, UART_RX;
+         INPUT se, UART_RX6_input_port             ;read character from buffer
+         RETURN 
+
+wait_space: CALL UART_RX
+	    CALL UART_TX
+	    COMPARE sE, " ";
+	    RETURN Z
+	    JUMP wait_space
+
+send_CR:LOAD se, CR;
+	CALL UART_TX;
+	RETURN;
+
+send_space:LOAD se, " ";
+	   CALL UART_TX;
+ 	   RETURN;
+
+send_LF:LOAD se, LF;
+	CALL UART_TX;
+	RETURN;
+
+next_line:CALL send_LF;
+	  CALL send_CR;
+	  RETURN;
+
+send_err: LOAD sE, "E";
+	  CALL UART_TX
+	  LOAD sE, "R"
+	  CALL UART_TX
+	  LOAD sE, "R"
+	  CALL UART_TX
+	  CALL next_line
+	  RETURN
+
+send_hex: LOAD se, sd;
+	  SR0 se;
+	  SR0 se;	
+	  SR0 se;
+	  SR0 se;
+          CALL conv_nib
+	  CALL UART_TX;
+	  LOAD se, sd;
+ 	  AND se, 0f;
+	  CALL conv_nib
+	  CALL UART_TX;
+	  RETURN
+
+conv_nib  :COMPARE se, 0A;
+	  JUMP C, less_A
+	  SUB se, 0A;
+	  ADD se, "A";
+	  RETURN;
+less_A:	  ADD se, "0";
+	  RETURN;
+
+upper_case: COMPARE sE, "a"                 ;eliminate character codes below 'a' (61 hex)
+            RETURN C
+            COMPARE sE, 7B                  ;eliminate character codes above 'z' (7A hex)
+            RETURN NC
+            AND se, 11011111'b              ;force bit5 Low to convert to upper case
+            RETURN 
+
+ASCII_to_hex: ADD sE, B9                      ;test for above ASCII code 46 ('F')
+              RETURN C
+              SUB sE, E9                      ;normalise 0 to 9 with A-F in 11 to 16 hex
+              RETURN C                        ;reject below ASCII code 30 ('0')
+              SUB sE, 11                      ;isolate A-F down to 00 to 05 hex
+              JUMP NC, ASCII_letter
+              ADD sE, 07                      ;test for above ASCII code 46 ('F')
+              RETURN C
+              SUB sE, F6                      ;convert to range 00 to 09
+              RETURN 
+
+ASCII_letter: ADD sE, 0A                      ;convert to range 0A to 0F
+              RETURN 
+
+obtain_value: LOAD sA, 00                     	    ;initialise potentially unused bits to zero
+	      LOAD sB, 00
+	      LOAD sC, 00
+	      LOAD sD, 00
+	      LOAD sF, 08
+      obtain_digit: CALL UART_RX                    ;wait for a character and return in s5
+                    CALL UART_TX                    ;echo character as entered
+		    COMPARE sE, " "
+	     	    RETURN Z
+                    CALL upper_case                 ;convert to upper case if necessary
+                    CALL ASCII_to_hex               ;convert value in sE to hex nibble
+                    RETURN C                        ;If invalid hex digit then return immediately
+                    LOAD s0, 4'd                    ;shift [sD,sC,sB,sA] left by 4 bits
+       build_value: SL0 sA                          ;  to make space for new digit value
+                    SLA sB
+                    SLA sC
+                    SLA sD
+                    SUB s0, 1'd
+                    JUMP NZ, build_value
+                    OR sA, sE                       ;merge value of new digit into existing value
+                    SUB sF, 01                      ;count number of digits obtained
+                    JUMP NZ, obtain_digit
+                    RETURN

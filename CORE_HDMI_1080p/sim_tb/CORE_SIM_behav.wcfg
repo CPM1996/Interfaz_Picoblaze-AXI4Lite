@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="CORE_SIM_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="CORE_SIM" />
+            <top_module name="dvi_constants" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="39304406000fs"></ZoomStartTime>
+      <ZoomEndTime time="39707406001fs"></ZoomEndTime>
+      <Cursor1Time time="39387406000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="166"></NameColumnWidth>
+      <ValueColumnWidth column_width="70"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="18" />
+   <wvobject fp_name="/CORE_SIM/hdmi_pixel_clock" type="logic">
+      <obj_property name="ElementShortName">hdmi_pixel_clock</obj_property>
+      <obj_property name="ObjectShortName">hdmi_pixel_clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/CORE_SIM/hdmi_ddr_clock" type="logic">
+      <obj_property name="ElementShortName">hdmi_ddr_clock</obj_property>
+      <obj_property name="ObjectShortName">hdmi_ddr_clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/CORE_SIM/hdmi_data" type="array">
+      <obj_property name="ElementShortName">hdmi_data[23:0]</obj_property>
+      <obj_property name="ObjectShortName">hdmi_data[23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/CORE_SIM/hcount" type="other">
+      <obj_property name="ElementShortName">hcount</obj_property>
+      <obj_property name="ObjectShortName">hcount</obj_property>
+   </wvobject>
+   <wvobject fp_name="/CORE_SIM/vcount" type="other">
+      <obj_property name="ElementShortName">vcount</obj_property>
+      <obj_property name="ObjectShortName">vcount</obj_property>
+   </wvobject>
+   <wvobject fp_name="/CORE_SIM/hdmi_hsync" type="logic">
+      <obj_property name="ElementShortName">hdmi_hsync</obj_property>
+      <obj_property name="ObjectShortName">hdmi_hsync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/CORE_SIM/hdmi_vsync" type="logic">
+      <obj_property name="ElementShortName">hdmi_vsync</obj_property>
+      <obj_property name="ObjectShortName">hdmi_vsync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/CORE_SIM/hdmi_vact" type="logic">
+      <obj_property name="ElementShortName">hdmi_vact</obj_property>
+      <obj_property name="ObjectShortName">hdmi_vact</obj_property>
+   </wvobject>
+   <wvobject fp_name="/CORE_SIM/hdmi_hact" type="logic">
+      <obj_property name="ElementShortName">hdmi_hact</obj_property>
+      <obj_property name="ObjectShortName">hdmi_hact</obj_property>
+   </wvobject>
+   <wvobject fp_name="/CORE_SIM/hdmi_den" type="logic">
+      <obj_property name="ElementShortName">hdmi_den</obj_property>
+      <obj_property name="ObjectShortName">hdmi_den</obj_property>
+   </wvobject>
+   <wvobject fp_name="group129" type="group">
+      <obj_property name="label">q_m_core</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/CORE_SIM/HDMI_CORE/Codificador_R/q_m" type="array">
+         <obj_property name="ElementShortName">q_m[8:0]</obj_property>
+         <obj_property name="ObjectShortName">q_m[8:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/HDMI_CORE/Codificador_G/q_m" type="array">
+         <obj_property name="ElementShortName">q_m[8:0]</obj_property>
+         <obj_property name="ObjectShortName">q_m[8:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/HDMI_CORE/Codificador_B/q_m" type="array">
+         <obj_property name="ElementShortName">q_m[8:0]</obj_property>
+         <obj_property name="ObjectShortName">q_m[8:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group130" type="group">
+      <obj_property name="label">q_m_refcore</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/CORE_SIM/HDMI_REFCORE/\DataEncoders(2)\/DataEncoder/q_m_2" type="array">
+         <obj_property name="ElementShortName">q_m_2[8:0]</obj_property>
+         <obj_property name="ObjectShortName">q_m_2[8:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/HDMI_REFCORE/\DataEncoders(1)\/DataEncoder/q_m_2" type="array">
+         <obj_property name="ElementShortName">q_m_2[8:0]</obj_property>
+         <obj_property name="ObjectShortName">q_m_2[8:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/HDMI_REFCORE/\DataEncoders(0)\/DataEncoder/q_m_2" type="array">
+         <obj_property name="ElementShortName">q_m_2[8:0]</obj_property>
+         <obj_property name="ObjectShortName">q_m_2[8:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group37" type="group">
+      <obj_property name="label">out_pararell_core</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/CORE_SIM/HDMI_CORE/tmds_cod2" type="array">
+         <obj_property name="ElementShortName">tmds_cod2[9:0]</obj_property>
+         <obj_property name="ObjectShortName">tmds_cod2[9:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/HDMI_CORE/tmds_cod1" type="array">
+         <obj_property name="ElementShortName">tmds_cod1[9:0]</obj_property>
+         <obj_property name="ObjectShortName">tmds_cod1[9:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/HDMI_CORE/tmds_cod0" type="array">
+         <obj_property name="ElementShortName">tmds_cod0[9:0]</obj_property>
+         <obj_property name="ObjectShortName">tmds_cod0[9:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group48" type="group">
+      <obj_property name="label">out_pararell_refcore</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/CORE_SIM/HDMI_REFCORE/pDataOutRaw[2]" type="array">
+         <obj_property name="ElementShortName">[2][9:0]</obj_property>
+         <obj_property name="ObjectShortName">[2][9:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/HDMI_REFCORE/pDataOutRaw[1]" type="array">
+         <obj_property name="ElementShortName">[1][9:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][9:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/HDMI_REFCORE/pDataOutRaw[0]" type="array">
+         <obj_property name="ElementShortName">[0][9:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][9:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/CORE_SIM/hdmi_clk_core[1]" type="logic">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">[1]</obj_property>
+      <obj_property name="ObjectShortName">[1]</obj_property>
+      <obj_property name="label">out_clk_core</obj_property>
+   </wvobject>
+   <wvobject fp_name="vbus122" type="vbus">
+      <obj_property name="label">out_core</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+      <wvobject fp_name="/CORE_SIM/hdmi_d2_core[1]" type="logic">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/hdmi_d1_core[1]" type="logic">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/hdmi_d0_core[1]" type="logic">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/CORE_SIM/hdmi_clk_refcore[1]" type="logic">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">[1]</obj_property>
+      <obj_property name="ObjectShortName">[1]</obj_property>
+      <obj_property name="label">out_clk_refcore</obj_property>
+   </wvobject>
+   <wvobject fp_name="vbus133" type="vbus">
+      <obj_property name="label">out_refcore</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+      <wvobject fp_name="/CORE_SIM/hdmi_d2_refcore[1]" type="logic">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/hdmi_d1_refcore[1]" type="logic">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/CORE_SIM/hdmi_d0_refcore[1]" type="logic">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

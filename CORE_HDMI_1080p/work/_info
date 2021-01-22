@@ -1,0 +1,80 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\Carlos\Zybo\Pruebas_CORE_HDMI\MODELSIM_TEST
+Ecodificador_tmds
+Z1 w1521551960
+Z2 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z3 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z4 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z5 dD:\Carlos\Zybo\Pruebas_CORE_HDMI\CORE_MOD
+Z6 8HDMI_COD.vhd
+Z7 FHDMI_COD.vhd
+l0
+L10
+VDGjegiJJWZ[C9JWHc<UHE3
+!s100 8oXYZUn37?YG670IIf0;l3
+Z8 OE;C;10.1c;51
+31
+!i10b 1
+Z9 !s108 1522751038.536000
+Z10 !s90 -reportprogress|300|-work|work|HDMI_COD.vhd|
+Z11 !s107 HDMI_COD.vhd|
+Z12 o-work work
+Z13 tExplicit 1
+Aarq_codificador_tmds
+Z14 DEx4 work 21 reductor_transiciones 0 22 Sa;0:JIXEBcLIbPQ>D=Z41
+R2
+R3
+R4
+Z15 DEx4 work 16 codificador_tmds 0 22 DGjegiJJWZ[C9JWHc<UHE3
+l30
+L23
+VAFSk1M5H>2j6DRcEhSXLe3
+!s100 AfF1[CIATohDBaB]0QSMo0
+R8
+31
+!i10b 1
+R9
+R10
+R11
+R12
+R13
+Ereductor_transiciones
+Z16 w1522747446
+R2
+R3
+R4
+R5
+Z17 8reductor_transiciones.vhd
+Z18 Freductor_transiciones.vhd
+l0
+L5
+VSa;0:JIXEBcLIbPQ>D=Z41
+R8
+31
+Z19 !s108 1522750636.501000
+Z20 !s90 -reportprogress|300|-work|work|reductor_transiciones.vhd|
+Z21 !s107 reductor_transiciones.vhd|
+R12
+R13
+!s100 z0YBG`KEflBOA<TkjDmJ53
+!i10b 1
+Abehavioral
+R2
+R3
+R4
+R14
+l31
+L14
+V@bJa3G^Mk4CHAk8aN7M6;1
+R8
+31
+R19
+R20
+R21
+R12
+R13
+!s100 ;a;X5e4?j9HkG?<IR2DR63
+!i10b 1
